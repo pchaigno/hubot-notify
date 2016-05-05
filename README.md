@@ -1,5 +1,7 @@
 # hubot-notify
 
+[![Build Status](https://travis-ci.org/pchaigno/hubot-notify.svg?branch=master)](https://travis-ci.org/pchaigno/hubot-notify)
+
 Exposes Hubot via a simple REST API to send messages to rooms and users.
 
 ## Installation
