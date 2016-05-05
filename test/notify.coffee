@@ -24,6 +24,19 @@ describe 'hubot-notify', ->
         ['hubot', 'Ops is down!']
       ]
 
+  context "POST /notify/pchaigno", ->
+    beforeEach (done) ->
+      data = {message: "Oracle is down!"}
+      request.post {url: 'http://127.0.0.1:8080/notify/pchaigno', form: data}, (err, httpResponse, body) ->
+        done()
+
+    it 'notifies pchaigno by private message', ->
+      expect(@room.privateMessages).to.eql {
+        'pchaigno': [
+          ['hubot', 'Oracle is down!']
+        ]
+      }
+
   context "POST /notify/_hdbot/pchaigno", ->
     beforeEach (done) ->
       data = {message: "Gitlab is down!"}
