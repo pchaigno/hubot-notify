@@ -1,6 +1,7 @@
 # hubot-notify
 
 [![Build Status](https://travis-ci.org/pchaigno/hubot-notify.svg?branch=master)](https://travis-ci.org/pchaigno/hubot-notify)
+[![Coverage Status](https://coveralls.io/repos/github/pchaigno/hubot-notify/badge.svg?branch=master)](https://coveralls.io/github/pchaigno/hubot-notify?branch=master)
 
 Exposes Hubot via a simple REST API to send messages to rooms and users.
 
