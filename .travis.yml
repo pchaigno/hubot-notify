@@ -3,3 +3,10 @@ node_js:
   - "5.6.0"
   - "5.5.0"
   - "4.3.1"
+before_install:
+  - npm install coffee-coverage istanbul coveralls
+script:
+  - mocha --compilers coffee:coffee-script/register --require coffee-coverage/register-istanbul --recursive test
+  - istanbul report text-summary lcov
+after_success:
+  - cat ./coverage/lcov.info | ./node_modules/.bin/coveralls
