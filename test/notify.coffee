@@ -9,6 +9,7 @@ describe 'hubot-notify', ->
 
   beforeEach ->
     @room = helper.createRoom()
+    @result = null
 
   afterEach ->
     @room.destroy()
@@ -34,3 +35,30 @@ describe 'hubot-notify', ->
       expect(@room.messages).to.eql [
         ['hubot', 'pchaigno: Gitlab is down!']
       ]
+
+  context "POST /notify/_hdbot", ->
+    beforeEach (done) ->
+      process.env.NOTIFY_SECRET = 'default'
+      data = {message: "Bitbucket is down!", "secret": "default"}
+      request.post {url: 'http://127.0.0.1:8080/notify/_hdbot', form: data}, (err, httpResponse, body) ->
+        done()
+
+    it 'use the correct secret', ->
+      expect(@room.messages).to.eql [
+        ['hubot', 'Bitbucket is down!']
+      ]
+
+  context "POST /notify/_hdbot", ->
+
+    result = null
+
+    beforeEach (done) ->
+      process.env.NOTIFY_SECRET = 'default'
+      data = {message: "Bitbucket is down!", "secret": "custom"}
+      request.post {url: 'http://127.0.0.1:8080/notify/_hdbot', form: data}, (err, httpResponse, body) ->
+        result = httpResponse
+        done()
+
+    it 'use the incorrect secret', ->
+      expect(result.body).to.eql 'error: secret verification failed\n'
+      expect(result.statusCode).to.eql 401
